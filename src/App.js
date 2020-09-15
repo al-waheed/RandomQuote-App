@@ -10,10 +10,10 @@ class App extends Component {
     author:quotes[0].author
   };
 
-  addQuote = (quote) =>{
-   const newQuote = [...this.state.quotes,quote];
+  addQuote = (addQuote) =>{
+   const newQuote = [...this.state.quote,addQuote];
     this.setState({
-      quotes  : newQuote
+      quote  : newQuote
     })
   }
 
