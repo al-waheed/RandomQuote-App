@@ -1,44 +1,59 @@
 import React, { Component } from 'react';
-import Messages from './Messages'; 
-import AddMessage from './AddMessage';
+import Quotes from './Quotes'; 
+import AddQuotes from './AddQuotes';
+import quotes from './MessageDatabase';
 
 class App extends Component {
 
   state = {
-    messages:[ 
-      {id: 1, content:'We are most alive when we are in love'},
-      {id: 2, content:'Never love anybody who treats ou like you are nobody'},
-      {id: 3, content:'To love is nothing to be loved is something..to love and be loved is everything'},
-      {id: 4, content:'love does not dominate, it cultivates'},
-      {id: 5, content:'Within you i lose myself,without you i find myself wanting to become lost again'},
-      {id: 6, content:'Every day and night,my mind is filled with thoughts of you.As long as the sun continues to shine,you can be sure that my heart will remain yours'},
-      {id: 7, content:'Forever is a long time,but i wouldnot mind spending it by your side'}
-    ]
+    quote:quotes[0].quote,
+    author:quotes[0].author
   };
 
-  addMessage = (newMessage) =>{
-   const messages = [...this.state.messages,newMessage];
+  addQuote = (quote) =>{
+   const newQuote = [...this.state.quotes,quote];
     this.setState({
-      messages : messages
+      quotes  : newQuote
     })
   }
 
-  randomMessages=(e)=>{
-   const quote = Math.floor(Math.random() * this.state.messages.length)
-    this.setState({
-      [e.target.id]: e.target.value
-    }) 
+  randomQuote=(e)=>{
+   const randomNum = Math.floor(Math.random() * quotes.length)
+    return quotes[randomNum];
   }
 
+  reorderQuotes(arr){
+    return arr.sort(()=>Math.random()-0.5)
+  }
+   
+  handleClick = () => {
+    const generateRandomQuote = this.randomQuote();
+    this.setState({
+      quote: generateRandomQuote.quote,
+      author: generateRandomQuote.author
+    });
+    this.reorderQuotes(quotes)
+  };
 
-render(){
-  return (
-  <div>
-    <div id='name'></div>
-     <Messages messages={this.randomMessages}/>
-    <AddMessage addMessage={this.addMessages}/>
-  </div>
-  );
- }
+  generateRandomColor() {
+    const randomColor = `rgb(
+      ${Math.floor(Math.random() * 155)},
+      ${Math.floor(Math.random() * 155)},
+      ${Math.floor(Math.random() * 155)}
+      )`;
+    return randomColor;
+  }
+
+     render(){
+        return (
+          <div>
+            <Quotes
+               displayColor={this.generateRandomColor}
+               handleClick={this.handleClick}{...this.state}/>
+
+            <AddQuotes addQuote={this.addQuote}/>
+           </div>
+       );
+    }
 }
 export default App;
