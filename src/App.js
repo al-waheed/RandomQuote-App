@@ -39,7 +39,6 @@ class App extends Component {
      render(){
         return (
           <div>
-            <Time time={this.currentTime}/>
             <Quotes
                displayColor={this.generateRandomColor}
                handleClick={this.handleClick}{...this.state}/>
