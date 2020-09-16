@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Quotes from './Quotes'; 
-import AddQuotes from './AddQuotes';
 import quotes from './MessageDatabase';
 
 class App extends Component {
@@ -9,13 +8,6 @@ class App extends Component {
     quote:quotes[0].quote,
     author:quotes[0].author
   };
-
-  addQuote = (addQuote) =>{
-   const newQuote = [...this.state.quote,addQuote];
-    this.setState({
-      quote  : newQuote
-    })
-  }
 
   randomQuote=(e)=>{
    const randomNum = Math.floor(Math.random() * quotes.length)
@@ -47,11 +39,10 @@ class App extends Component {
      render(){
         return (
           <div>
+            <Time time={this.currentTime}/>
             <Quotes
                displayColor={this.generateRandomColor}
                handleClick={this.handleClick}{...this.state}/>
-
-            <AddQuotes addQuote={this.addQuote}/>
            </div>
        );
     }
